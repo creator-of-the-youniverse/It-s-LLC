@@ -1,0 +1,190 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Global Catch-All: Default Deny
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Helper functions
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isOwner(userId) {
+      return isSignedIn() && request.auth.uid == userId;
+    }
+
+    function isValidId(id) {
+      return id is string && id.size() > 0 && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    function incoming() {
+      return request.resource.data;
+    }
+
+    function existing() {
+      return resource.data;
+    }
+
+    // User Profile Validation
+    function isValidUserProfile(data, uid) {
+      return data.keys().hasAll(['uid', 'email'])
+        && data.uid is string && data.uid == uid
+        && data.email is string && data.email.size() <= 128
+        && (!('displayName' in data) || (data.displayName is string && data.displayName.size() <= 128))
+        && (!('photoURL' in data) || (data.photoURL is string && data.photoURL.size() <= 512))
+        && (!('role' in data) || (data.role is string && data.role.size() <= 64))
+        && (!('lastActiveAt' in data) || (data.lastActiveAt is string && data.lastActiveAt.size() <= 64));
+    }
+
+    match /users/{userId} {
+      allow get: if isOwner(userId);
+      allow list: if false;
+      allow create: if isOwner(userId) && isValidId(userId) && isValidUserProfile(incoming(), userId);
+      allow update: if isOwner(userId) && isValidUserProfile(incoming(), userId)
+        && incoming().uid == existing().uid;
+      allow delete: if isOwner(userId);
+    }
+
+    // Campaign Document Validation
+    function isValidCampaign(data) {
+      return data.keys().hasAll(['id', 'startDate'])
+        && data.id is string && isValidId(data.id)
+        && data.startDate is string && data.startDate.size() <= 32
+        && (!('operatorName' in data) || (data.operatorName is string && data.operatorName.size() <= 128))
+        && (!('selectedNiche' in data) || (data.selectedNiche is string && data.selectedNiche.size() <= 128))
+        && (!('demoSiteUrl' in data) || (data.demoSiteUrl is string && data.demoSiteUrl.size() <= 256))
+        && (!('startingWorkingCapital' in data) || data.startingWorkingCapital is number)
+        && (!('protectedReserve' in data) || data.protectedReserve is number)
+        && (!('operatingBudget' in data) || data.operatingBudget is number)
+        && (!('salesAssetsBudget' in data) || data.salesAssetsBudget is number)
+        && (!('adTestBudget' in data) || data.adTestBudget is number)
+        && (!('contingencyBudget' in data) || data.contingencyBudget is number)
+        && (!('essentialLivingProtectedAmount' in data) || data.essentialLivingProtectedAmount is number)
+        && (!('dailyCallTarget' in data) || data.dailyCallTarget is number)
+        && (!('dailyFollowUpTarget' in data) || data.dailyFollowUpTarget is number)
+        && (!('maxConcurrentActiveProjects' in data) || data.maxConcurrentActiveProjects is number)
+        && (!('onboardingCompleted' in data) || data.onboardingCompleted is bool)
+        && (!('updatedAt' in data) || (data.updatedAt is string && data.updatedAt.size() <= 64))
+        && (!('updatedBy' in data) || (data.updatedBy is string && data.updatedBy.size() <= 128));
+    }
+
+    match /campaigns/{campaignId} {
+      allow get, list: if isSignedIn() && isValidId(campaignId);
+      allow create: if isSignedIn() && isValidId(campaignId) && isValidCampaign(incoming());
+      allow update: if isSignedIn() && isValidId(campaignId) && isValidCampaign(incoming())
+        && incoming().id == existing().id;
+      allow delete: if isSignedIn() && isValidId(campaignId);
+
+      // Prospects Subcollection
+      match /prospects/{prospectId} {
+        allow get, list: if isSignedIn() && isValidId(campaignId);
+        allow create: if isSignedIn() && isValidId(campaignId) && isValidId(prospectId)
+          && incoming().keys().hasAll(['id', 'campaignId', 'businessName', 'stage'])
+          && incoming().id == prospectId
+          && incoming().campaignId == campaignId
+          && incoming().businessName is string && incoming().businessName.size() <= 128
+          && incoming().stage is string && incoming().stage.size() <= 64;
+        allow update: if isSignedIn() && isValidId(campaignId) && isValidId(prospectId)
+          && incoming().id == existing().id
+          && incoming().campaignId == existing().campaignId
+          && incoming().businessName is string && incoming().businessName.size() <= 128;
+        allow delete: if isSignedIn() && isValidId(campaignId) && isValidId(prospectId);
+      }
+
+      // Calls Subcollection
+      match /calls/{callId} {
+        allow get, list: if isSignedIn() && isValidId(campaignId);
+        allow create: if isSignedIn() && isValidId(campaignId) && isValidId(callId)
+          && incoming().keys().hasAll(['id', 'campaignId', 'businessName', 'outcome', 'timestamp'])
+          && incoming().id == callId
+          && incoming().campaignId == campaignId
+          && incoming().businessName is string && incoming().businessName.size() <= 128
+          && incoming().outcome is string && incoming().outcome.size() <= 64
+          && incoming().timestamp is string && incoming().timestamp.size() <= 64;
+        allow update: if isSignedIn() && isValidId(campaignId) && isValidId(callId)
+          && incoming().id == existing().id
+          && incoming().campaignId == existing().campaignId;
+        allow delete: if isSignedIn() && isValidId(campaignId) && isValidId(callId);
+      }
+
+      // Proposals Subcollection
+      match /proposals/{proposalId} {
+        allow get, list: if isSignedIn() && isValidId(campaignId);
+        allow create: if isSignedIn() && isValidId(campaignId) && isValidId(proposalId)
+          && incoming().keys().hasAll(['id', 'campaignId', 'customerName', 'totalPrice', 'status'])
+          && incoming().id == proposalId
+          && incoming().campaignId == campaignId
+          && incoming().customerName is string && incoming().customerName.size() <= 128
+          && incoming().totalPrice is number
+          && incoming().status is string && incoming().status.size() <= 64;
+        allow update: if isSignedIn() && isValidId(campaignId) && isValidId(proposalId)
+          && incoming().id == existing().id
+          && incoming().campaignId == existing().campaignId;
+        allow delete: if isSignedIn() && isValidId(campaignId) && isValidId(proposalId);
+      }
+
+      // Projects Subcollection
+      match /projects/{projectId} {
+        allow get, list: if isSignedIn() && isValidId(campaignId);
+        allow create: if isSignedIn() && isValidId(campaignId) && isValidId(projectId)
+          && incoming().keys().hasAll(['id', 'campaignId', 'customerName', 'status'])
+          && incoming().id == projectId
+          && incoming().campaignId == campaignId
+          && incoming().customerName is string && incoming().customerName.size() <= 128
+          && incoming().status is string && incoming().status.size() <= 64;
+        allow update: if isSignedIn() && isValidId(campaignId) && isValidId(projectId)
+          && incoming().id == existing().id
+          && incoming().campaignId == existing().campaignId;
+        allow delete: if isSignedIn() && isValidId(campaignId) && isValidId(projectId);
+      }
+
+      // Tasks Subcollection
+      match /tasks/{taskId} {
+        allow get, list: if isSignedIn() && isValidId(campaignId);
+        allow create: if isSignedIn() && isValidId(campaignId) && isValidId(taskId)
+          && incoming().keys().hasAll(['id', 'campaignId', 'dayNumber', 'title', 'status'])
+          && incoming().id == taskId
+          && incoming().campaignId == campaignId
+          && incoming().dayNumber is number
+          && incoming().title is string && incoming().title.size() <= 256
+          && incoming().status is string && incoming().status.size() <= 64;
+        allow update: if isSignedIn() && isValidId(campaignId) && isValidId(taskId)
+          && incoming().id == existing().id
+          && incoming().campaignId == existing().campaignId;
+        allow delete: if isSignedIn() && isValidId(campaignId) && isValidId(taskId);
+      }
+
+      // Transactions Subcollection
+      match /transactions/{transactionId} {
+        allow get, list: if isSignedIn() && isValidId(campaignId);
+        allow create: if isSignedIn() && isValidId(campaignId) && isValidId(transactionId)
+          && incoming().keys().hasAll(['id', 'campaignId', 'date', 'amount', 'type', 'description'])
+          && incoming().id == transactionId
+          && incoming().campaignId == campaignId
+          && incoming().amount is number
+          && incoming().description is string && incoming().description.size() <= 256;
+        allow update: if isSignedIn() && isValidId(campaignId) && isValidId(transactionId)
+          && incoming().id == existing().id
+          && incoming().campaignId == existing().campaignId;
+        allow delete: if isSignedIn() && isValidId(campaignId) && isValidId(transactionId);
+      }
+
+      // Activity Feed Subcollection
+      match /activity/{activityId} {
+        allow get, list: if isSignedIn() && isValidId(campaignId);
+        allow create: if isSignedIn() && isValidId(campaignId) && isValidId(activityId)
+          && incoming().keys().hasAll(['id', 'campaignId', 'timestamp', 'memberId', 'memberName', 'actionType', 'targetTitle'])
+          && incoming().id == activityId
+          && incoming().campaignId == campaignId
+          && incoming().timestamp is string && incoming().timestamp.size() <= 64
+          && incoming().memberId is string && incoming().memberId.size() <= 64
+          && incoming().actionType is string && incoming().actionType.size() <= 64;
+        allow update: if false; // Audit logs are immutable
+        allow delete: if isSignedIn() && isValidId(campaignId) && isValidId(activityId);
+      }
+    }
+  }
+}

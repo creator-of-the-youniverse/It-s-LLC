@@ -1,0 +1,216 @@
+{
+  "entities": {
+    "UserProfile": {
+      "title": "UserProfile",
+      "description": "Authenticated user profile and role metadata",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "maxLength": 128 },
+        "displayName": { "type": "string", "maxLength": 128 },
+        "email": { "type": "string", "maxLength": 128 },
+        "photoURL": { "type": "string", "maxLength": 512 },
+        "role": { "type": "string", "maxLength": 64 },
+        "lastActiveAt": { "type": "string", "maxLength": 64 }
+      },
+      "required": ["uid", "email"]
+    },
+    "Campaign": {
+      "title": "Campaign",
+      "description": "Core 30-Day execution campaign root document",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 64 },
+        "operatorName": { "type": "string", "maxLength": 128 },
+        "startDate": { "type": "string", "maxLength": 32 },
+        "selectedNiche": { "type": "string", "maxLength": 128 },
+        "demoSiteUrl": { "type": "string", "maxLength": 256 },
+        "startingWorkingCapital": { "type": "number" },
+        "protectedReserve": { "type": "number" },
+        "operatingBudget": { "type": "number" },
+        "salesAssetsBudget": { "type": "number" },
+        "adTestBudget": { "type": "number" },
+        "contingencyBudget": { "type": "number" },
+        "essentialLivingProtectedAmount": { "type": "number" },
+        "dailyCallTarget": { "type": "number" },
+        "dailyFollowUpTarget": { "type": "number" },
+        "maxConcurrentActiveProjects": { "type": "number" },
+        "onboardingCompleted": { "type": "boolean" },
+        "updatedAt": { "type": "string", "maxLength": 64 },
+        "updatedBy": { "type": "string", "maxLength": 128 }
+      },
+      "required": ["id", "startDate"]
+    },
+    "ProspectDoc": {
+      "title": "ProspectDoc",
+      "description": "Prospect lead record in the sales pipeline",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 64 },
+        "campaignId": { "type": "string", "maxLength": 64 },
+        "businessName": { "type": "string", "maxLength": 128 },
+        "contactName": { "type": "string", "maxLength": 128 },
+        "phone": { "type": "string", "maxLength": 64 },
+        "email": { "type": "string", "maxLength": 128 },
+        "stage": { "type": "string", "maxLength": 64 },
+        "offerInterest": { "type": "string", "maxLength": 64 },
+        "problemObserved": { "type": "string", "maxLength": 512 },
+        "estimatedValue": { "type": "number" },
+        "claimedByMemberId": { "type": "string", "maxLength": 64 },
+        "claimedByName": { "type": "string", "maxLength": 128 },
+        "updatedAt": { "type": "string", "maxLength": 64 }
+      },
+      "required": ["id", "campaignId", "businessName", "stage"]
+    },
+    "CallLogDoc": {
+      "title": "CallLogDoc",
+      "description": "Log entry of phone conversation or follow-up call",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 64 },
+        "campaignId": { "type": "string", "maxLength": 64 },
+        "prospectId": { "type": "string", "maxLength": 64 },
+        "businessName": { "type": "string", "maxLength": 128 },
+        "contactName": { "type": "string", "maxLength": 128 },
+        "timestamp": { "type": "string", "maxLength": 64 },
+        "outcome": { "type": "string", "maxLength": 64 },
+        "notes": { "type": "string", "maxLength": 1024 },
+        "callerId": { "type": "string", "maxLength": 64 },
+        "callerName": { "type": "string", "maxLength": 128 }
+      },
+      "required": ["id", "campaignId", "businessName", "outcome", "timestamp"]
+    },
+    "ProposalDoc": {
+      "title": "ProposalDoc",
+      "description": "Client proposal agreement record",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 64 },
+        "campaignId": { "type": "string", "maxLength": 64 },
+        "prospectId": { "type": "string", "maxLength": 64 },
+        "customerName": { "type": "string", "maxLength": 128 },
+        "contactName": { "type": "string", "maxLength": 128 },
+        "offerCode": { "type": "string", "maxLength": 64 },
+        "title": { "type": "string", "maxLength": 256 },
+        "scopeSummary": { "type": "string", "maxLength": 1024 },
+        "totalPrice": { "type": "number" },
+        "status": { "type": "string", "maxLength": 64 },
+        "claimedByMemberId": { "type": "string", "maxLength": 64 },
+        "claimedByName": { "type": "string", "maxLength": 128 },
+        "updatedAt": { "type": "string", "maxLength": 64 }
+      },
+      "required": ["id", "campaignId", "customerName", "totalPrice", "status"]
+    },
+    "ProjectDoc": {
+      "title": "ProjectDoc",
+      "description": "Fulfillment project build & delivery tracking record",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 64 },
+        "campaignId": { "type": "string", "maxLength": 64 },
+        "proposalId": { "type": "string", "maxLength": 64 },
+        "customerName": { "type": "string", "maxLength": 128 },
+        "projectTitle": { "type": "string", "maxLength": 256 },
+        "contractedValue": { "type": "number" },
+        "clearedCashCollected": { "type": "number" },
+        "remainingBalance": { "type": "number" },
+        "status": { "type": "string", "maxLength": 64 },
+        "claimedByMemberId": { "type": "string", "maxLength": 64 },
+        "claimedByName": { "type": "string", "maxLength": 128 },
+        "updatedAt": { "type": "string", "maxLength": 64 }
+      },
+      "required": ["id", "campaignId", "customerName", "status"]
+    },
+    "TaskDoc": {
+      "title": "TaskDoc",
+      "description": "Checklist task on 30-day roadmap or daily mission",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 64 },
+        "campaignId": { "type": "string", "maxLength": 64 },
+        "dayNumber": { "type": "number" },
+        "phaseNumber": { "type": "number" },
+        "title": { "type": "string", "maxLength": 256 },
+        "status": { "type": "string", "maxLength": 64 },
+        "completedAt": { "type": "string", "maxLength": 64 },
+        "claimedByMemberId": { "type": "string", "maxLength": 64 },
+        "claimedByName": { "type": "string", "maxLength": 128 },
+        "completedByMemberId": { "type": "string", "maxLength": 64 },
+        "completedByName": { "type": "string", "maxLength": 128 },
+        "updatedAt": { "type": "string", "maxLength": 64 }
+      },
+      "required": ["id", "campaignId", "dayNumber", "title", "status"]
+    },
+    "TransactionDoc": {
+      "title": "TransactionDoc",
+      "description": "Cash and capital accounting ledger entry",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 64 },
+        "campaignId": { "type": "string", "maxLength": 64 },
+        "date": { "type": "string", "maxLength": 32 },
+        "amount": { "type": "number" },
+        "type": { "type": "string", "maxLength": 32 },
+        "bucket": { "type": "string", "maxLength": 64 },
+        "description": { "type": "string", "maxLength": 256 },
+        "relatedEntityId": { "type": "string", "maxLength": 64 },
+        "isDeposit": { "type": "boolean" },
+        "recordedBy": { "type": "string", "maxLength": 128 }
+      },
+      "required": ["id", "campaignId", "date", "amount", "type", "description"]
+    },
+    "ActivityDoc": {
+      "title": "ActivityDoc",
+      "description": "Audit event in team activity war room feed",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 64 },
+        "campaignId": { "type": "string", "maxLength": 64 },
+        "timestamp": { "type": "string", "maxLength": 64 },
+        "memberId": { "type": "string", "maxLength": 64 },
+        "memberName": { "type": "string", "maxLength": 128 },
+        "actionType": { "type": "string", "maxLength": 64 },
+        "targetTitle": { "type": "string", "maxLength": 256 },
+        "detail": { "type": "string", "maxLength": 512 }
+      },
+      "required": ["id", "campaignId", "timestamp", "memberId", "memberName", "actionType", "targetTitle"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": { "$ref": "#/entities/UserProfile" },
+      "description": "User profiles for authenticated operators"
+    },
+    "/campaigns/{campaignId}": {
+      "schema": { "$ref": "#/entities/Campaign" },
+      "description": "Campaign root settings and configuration"
+    },
+    "/campaigns/{campaignId}/prospects/{prospectId}": {
+      "schema": { "$ref": "#/entities/ProspectDoc" },
+      "description": "Pipeline prospect records"
+    },
+    "/campaigns/{campaignId}/calls/{callId}": {
+      "schema": { "$ref": "#/entities/CallLogDoc" },
+      "description": "Outbound call & follow-up logs"
+    },
+    "/campaigns/{campaignId}/proposals/{proposalId}": {
+      "schema": { "$ref": "#/entities/ProposalDoc" },
+      "description": "Proposals and deals"
+    },
+    "/campaigns/{campaignId}/projects/{projectId}": {
+      "schema": { "$ref": "#/entities/ProjectDoc" },
+      "description": "Fulfillment delivery projects"
+    },
+    "/campaigns/{campaignId}/tasks/{taskId}": {
+      "schema": { "$ref": "#/entities/TaskDoc" },
+      "description": "Roadmap and mission checklist tasks"
+    },
+    "/campaigns/{campaignId}/transactions/{transactionId}": {
+      "schema": { "$ref": "#/entities/TransactionDoc" },
+      "description": "Ledger financial transactions"
+    },
+    "/campaigns/{campaignId}/activity/{activityId}": {
+      "schema": { "$ref": "#/entities/ActivityDoc" },
+      "description": "Team audit and activity events"
+    }
+  }
+}

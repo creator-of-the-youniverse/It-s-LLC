@@ -1,0 +1,328 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --font-display: 'Plus Jakarta Sans', system-ui, sans-serif;
+    --font-sans: 'DM Sans', system-ui, sans-serif;
+    --font-mono: 'IBM Plex Mono', monospace;
+    color-scheme: dark;
+  }
+
+  /* Custom Theme-Aware Scrollbars */
+  *,
+  *::before,
+  *::after,
+  html,
+  body {
+    scrollbar-width: thin;
+    scrollbar-color: #334155 #020617;
+  }
+
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #020617;
+    border-left: 1px solid rgba(30, 41, 59, 0.65);
+    border-top: 1px solid rgba(30, 41, 59, 0.65);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #1e293b 0%, #334155 100%);
+    border-radius: 9999px;
+    border: 2px solid #020617;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, #38bdf8 0%, #10b981 100%);
+  }
+
+  body {
+    font-family: var(--font-sans);
+    background-color: #020617;
+    color: #F1F5F9;
+    letter-spacing: 0.01em;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+    width: 100%;
+    max-width: 100vw;
+  }
+
+  h1, h2, h3, h4, .font-display {
+    font-family: var(--font-display);
+    text-wrap: balance;
+  }
+
+  .font-mono, .tabular-nums {
+    font-family: var(--font-mono);
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+/* =========================================================================
+   4-COLOR THEME CHANGER DEFINITIONS (Dark, Light, Morning, Night)
+   ========================================================================= */
+
+/* 1. DARK (Default High-Ticket Slate / Sky) */
+html[data-theme="dark"] {
+  color-scheme: dark;
+}
+html[data-theme="dark"] body {
+  background-color: #020617;
+  color: #f1f5f9;
+}
+
+/* 2. LIGHT (Modern Executive Crisp White & Slate) */
+html[data-theme="light"] {
+  color-scheme: light;
+}
+html[data-theme="light"] *,
+html[data-theme="light"] html,
+html[data-theme="light"] body {
+  scrollbar-color: #cbd5e1 #f8fafc;
+}
+html[data-theme="light"] ::-webkit-scrollbar-track {
+  background: #f8fafc;
+  border-color: #e2e8f0;
+}
+html[data-theme="light"] ::-webkit-scrollbar-thumb {
+  background: #94a3b8;
+  border-color: #f8fafc;
+}
+html[data-theme="light"] body {
+  background-color: #f8fafc;
+  color: #0f172a;
+}
+html[data-theme="light"] .bg-slate-950,
+html[data-theme="light"] .bg-slate-950\/90,
+html[data-theme="light"] .bg-slate-950\/80,
+html[data-theme="light"] .bg-slate-950\/70 {
+  background-color: #ffffff !important;
+}
+html[data-theme="light"] .bg-slate-900,
+html[data-theme="light"] .bg-slate-900\/90,
+html[data-theme="light"] .bg-slate-900\/80,
+html[data-theme="light"] .bg-slate-900\/60,
+html[data-theme="light"] .bg-slate-900\/50 {
+  background-color: #f1f5f9 !important;
+}
+html[data-theme="light"] .bg-slate-800,
+html[data-theme="light"] .bg-slate-800\/80,
+html[data-theme="light"] .bg-slate-800\/60 {
+  background-color: #e2e8f0 !important;
+}
+html[data-theme="light"] .border-slate-800,
+html[data-theme="light"] .border-slate-700 {
+  border-color: #cbd5e1 !important;
+}
+html[data-theme="light"] .text-white {
+  color: #0f172a !important;
+}
+html[data-theme="light"] .text-slate-300 {
+  color: #334155 !important;
+}
+html[data-theme="light"] .text-slate-400 {
+  color: #64748b !important;
+}
+html[data-theme="light"] .text-slate-500 {
+  color: #64748b !important;
+}
+
+/* 3. MORNING (Warm Sunrise Amber, Cream & Bronze) */
+html[data-theme="morning"] {
+  color-scheme: light;
+}
+html[data-theme="morning"] *,
+html[data-theme="morning"] html,
+html[data-theme="morning"] body {
+  scrollbar-color: #fcd34d #fffbeb;
+}
+html[data-theme="morning"] ::-webkit-scrollbar-track {
+  background: #fefce8;
+  border-color: #fde68a;
+}
+html[data-theme="morning"] ::-webkit-scrollbar-thumb {
+  background: #f59e0b;
+  border-color: #fefce8;
+}
+html[data-theme="morning"] body {
+  background-color: #fffdf5;
+  color: #292524;
+}
+html[data-theme="morning"] .bg-slate-950,
+html[data-theme="morning"] .bg-slate-950\/90,
+html[data-theme="morning"] .bg-slate-950\/80,
+html[data-theme="morning"] .bg-slate-950\/70 {
+  background-color: #fffbee !important;
+}
+html[data-theme="morning"] .bg-slate-900,
+html[data-theme="morning"] .bg-slate-900\/90,
+html[data-theme="morning"] .bg-slate-900\/80,
+html[data-theme="morning"] .bg-slate-900\/60,
+html[data-theme="morning"] .bg-slate-900\/50 {
+  background-color: #fef3c7 !important;
+}
+html[data-theme="morning"] .bg-slate-800,
+html[data-theme="morning"] .bg-slate-800\/80,
+html[data-theme="morning"] .bg-slate-800\/60 {
+  background-color: #fde68a !important;
+}
+html[data-theme="morning"] .border-slate-800,
+html[data-theme="morning"] .border-slate-700 {
+  border-color: #fcd34d !important;
+}
+html[data-theme="morning"] .text-white {
+  color: #451a03 !important;
+}
+html[data-theme="morning"] .text-slate-300 {
+  color: #78350f !important;
+}
+html[data-theme="morning"] .text-slate-400 {
+  color: #92400e !important;
+}
+
+/* 4. NIGHT (OLED Midnight Obsidian & Deep Violet) */
+html[data-theme="night"] {
+  color-scheme: dark;
+}
+html[data-theme="night"] *,
+html[data-theme="night"] html,
+html[data-theme="night"] body {
+  scrollbar-color: #3b0764 #030305;
+}
+html[data-theme="night"] ::-webkit-scrollbar-track {
+  background: #030305;
+  border-color: #1e1b4b;
+}
+html[data-theme="night"] ::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #1e1b4b 0%, #4c1d95 100%);
+  border-color: #030305;
+}
+html[data-theme="night"] body {
+  background-color: #030305;
+  color: #f3e8ff;
+}
+html[data-theme="night"] .bg-slate-950,
+html[data-theme="night"] .bg-slate-950\/90,
+html[data-theme="night"] .bg-slate-950\/80,
+html[data-theme="night"] .bg-slate-950\/70 {
+  background-color: #07070d !important;
+}
+html[data-theme="night"] .bg-slate-900,
+html[data-theme="night"] .bg-slate-900\/90,
+html[data-theme="night"] .bg-slate-900\/80,
+html[data-theme="night"] .bg-slate-900\/60,
+html[data-theme="night"] .bg-slate-900\/50 {
+  background-color: #0e0d18 !important;
+}
+html[data-theme="night"] .bg-slate-800,
+html[data-theme="night"] .bg-slate-800\/80,
+html[data-theme="night"] .bg-slate-800\/60 {
+  background-color: #181628 !important;
+}
+html[data-theme="night"] .border-slate-800,
+html[data-theme="night"] .border-slate-700 {
+  border-color: #2e264f !important;
+}
+
+/* High-Ticket Embossed UI with Specular Gloss & Hover Elevation Shadow */
+.embossed-card,
+.bg-slate-900.border.border-slate-800.rounded-xl,
+.bg-slate-900\/90.border.border-slate-800.rounded-xl {
+  position: relative;
+  box-shadow:
+    0 12px 30px -10px rgba(2, 6, 23, 0.85),
+    0 2px 6px -1px rgba(2, 6, 23, 0.6),
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.09),
+    inset 0 -1px 0 0 rgba(0, 0, 0, 0.6);
+  transition:
+    transform 180ms cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 180ms cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 180ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.embossed-card:hover,
+.bg-slate-900.border.border-slate-800.rounded-xl:hover {
+  transform: translateY(-2px);
+  border-color: rgba(56, 189, 248, 0.38);
+}
+
+.embossed-button {
+  box-shadow:
+    0 4px 14px -3px rgba(2, 6, 23, 0.75),
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.22),
+    inset 0 -1px 0 0 rgba(0, 0, 0, 0.45);
+  transition:
+    transform 150ms cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 150ms cubic-bezier(0.16, 1, 0.3, 1),
+    filter 150ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.embossed-button:hover {
+  transform: translateY(-1px);
+}
+
+.embossed-button:active {
+  transform: translateY(0);
+}
+
+/* Mobile Layout Safeguards - Prevent Horizontal Side-Scrolling */
+@media (max-width: 768px) {
+  body {
+    overflow-x: hidden !important;
+    position: relative;
+    width: 100vw;
+  }
+
+  button, input, select, textarea {
+    max-width: 100%;
+  }
+
+  /* Prevent overhanging button bars on mobile */
+  .button-bar,
+  .action-bar {
+    flex-wrap: wrap !important;
+    gap: 0.5rem !important;
+  }
+}
+
+/* Animated Copy & High-Ticket Shimmer */
+@keyframes highTicketCopyShimmer {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.animated-copy-shimmer {
+  background: linear-gradient(
+    90deg,
+    #f8fafc 0%,
+    #38bdf8 35%,
+    #34d399 65%,
+    #f8fafc 100%
+  );
+  background-size: 220% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: highTicketCopyShimmer 6.5s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .embossed-card,
+  .embossed-button,
+  .animated-copy-shimmer {
+    animation: none !important;
+    transition: none !important;
+    transform: none !important;
+  }
+}

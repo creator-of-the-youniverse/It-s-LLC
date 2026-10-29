@@ -1,0 +1,221 @@
+{
+  "isDemoMode": false,
+  "settings": {
+    "companyName": "It's LLC",
+    "operatorName": "Founder",
+    "campaignTitle": "$5K TO $20K IN 30 DAYS",
+    "startDate": "2026-10-29",
+    "currentDayOverride": 1,
+    "revenueTarget": 20000,
+    "startingWorkingCapital": 5000,
+    "protectedReserve": 2500,
+    "operatingBudget": 750,
+    "salesAssetsBudget": 250,
+    "adTestBudget": 500,
+    "contingencyBudget": 1000,
+    "contingencyReleased": false,
+    "essentialLivingProtectedAmount": 0,
+    "estimatedTaxRatePercent": 15,
+    "maxConcurrentActiveProjects": 4,
+    "selectedNiche": "Local Home & Trade Services (HVAC, Plumbing, Roofing, Landscaping)",
+    "demoSiteUrl": "https://demo-contractor.portals-os.example.com",
+    "onboardingCompleted": true,
+    "dailyCallTarget": 22,
+    "dailyFollowUpTarget": 8,
+    "dailyDemoTarget": 2
+  },
+  "offers": [
+    {
+      "id": "offer-a",
+      "code": "OFFER_A",
+      "name": "Offer A: Small-business website",
+      "subtitle": "Primary revenue engine — narrow enough to quote, deliver, and repeat",
+      "targetCustomer": "Local small businesses with slow, outdated, non-mobile, or hard-to-contact websites",
+      "problemSolved": "Customers struggle to contact the business or request quotes on mobile, resulting in lost local inquiries.",
+      "deliverables": [
+        "Defined number of pages (up to 5 core pages: Home, Services, About, Reviews/Gallery, Contact/Quote)",
+        "Mobile-responsive design tested across mobile and desktop",
+        "Direct contact or quote-request functionality",
+        "Basic on-page SEO (titles, meta descriptions, local headings)",
+        "Analytics setup and conversion tracking",
+        "Agreed revision allowance (2 structured revision rounds)"
+      ],
+      "exclusions": [
+        "No unlimited revisions",
+        "No custom software development",
+        "No complex third-party integrations without separate scope evaluation"
+      ],
+      "price": 1500,
+      "paymentStructure": "50% deposit ($750) upfront before work begins; 50% ($750) at agreed completion milestone.",
+      "depositPercent": 50,
+      "estimatedDeliveryDays": 5,
+      "estimatedDeliveryHours": 10,
+      "directCostEstimate": 35,
+      "validationStatus": "Primary Engine (Validated Format)",
+      "targetUnitSales": 8,
+      "countTowardCoreTarget": true,
+      "scriptOpening": "Hi, is this the owner? My name is [your name]. I build websites for small businesses, with a focus on making it easier for customers to contact you and request work. I noticed [specific, truthful observation about their website]. I have an idea for improving that, and I can show you an example. I'm not asking you to buy anything on this call. Would you be open to a 10-minute demonstration?",
+      "objectionHandlers": [
+        {
+          "objection": "How much does it cost?",
+          "response": "For a standard 5-page small-business site with mobile quote requests and basic SEO, it's a fixed $1,500—half upfront, half when we review the completed site together. No surprise hourly billing."
+        },
+        {
+          "objection": "We already have a website.",
+          "response": "I completely understand. The reason I reached out is that on mobile, your quote button takes several steps and doesn't load cleanly. Most local homeowners search from a phone. In 10 minutes, I can show you a clean mockup that captures those leads directly."
+        }
+      ]
+    },
+    {
+      "id": "offer-b",
+      "code": "OFFER_B",
+      "name": "Offer B: Website + Lead automation package",
+      "subtitle": "Higher average contract value with built-in speed-to-lead workflow",
+      "targetCustomer": "Service businesses missing phone calls, after-hours leads, or requiring automated appointment routing",
+      "problemSolved": "Inquiries sit unread for hours or days; businesses lose jobs to competitors who respond in 5 minutes.",
+      "deliverables": [
+        "Everything in Offer A (5-page mobile-responsive website)",
+        "Missed-call text-back notification setup",
+        "Automated instant lead acknowledgment (SMS/email)",
+        "Basic appointment scheduling calendar integration",
+        "Owner notification routing directly to smartphone",
+        "2 revision rounds on automation workflows"
+      ],
+      "exclusions": [
+        "No custom enterprise CRM software build",
+        "No ongoing ad spend included in setup fee",
+        "No unbounded workflow variations"
+      ],
+      "price": 2500,
+      "paymentStructure": "50% deposit ($1,250) upfront before work begins; 50% ($1,250) upon live demo and delivery verification.",
+      "depositPercent": 50,
+      "estimatedDeliveryDays": 7,
+      "estimatedDeliveryHours": 16,
+      "directCostEstimate": 65,
+      "validationStatus": "High-Value Upsell Engine",
+      "targetUnitSales": 4,
+      "countTowardCoreTarget": true,
+      "scriptOpening": "Hi, is this the owner? My name is [your name]. Beyond modern websites, I set up automated lead capture that instantly texts customers back when you're on a job site so you don't lose emergency calls to competitors. Would you be open to a 10-minute demonstration of how this works?",
+      "objectionHandlers": [
+        {
+          "objection": "Can we just start with the regular website first?",
+          "response": "Absolutely. We can start with the $1,500 website build, ensure you love the foundation, and add the lead automation package later once new inquiries start rolling in."
+        }
+      ]
+    },
+    {
+      "id": "offer-c",
+      "code": "OFFER_C",
+      "name": "Offer C: The Youniverse Alpha",
+      "subtitle": "Experimental Upside — Unproven Until Repeatable Fulfillment Is Demonstrated",
+      "targetCustomer": "Forward-looking creators and brands seeking immersive 3D/AI digital portal assets",
+      "problemSolved": "Experimental interactive portfolio and spatial identity experiences.",
+      "deliverables": [
+        "Alpha portal prototype deployment",
+        "Early access stakeholder license",
+        "Interactive virtual room integration"
+      ],
+      "exclusions": [
+        "Experimental alpha: Do not count toward core viability until paid demand and delivery process are proven"
+      ],
+      "price": 4000,
+      "paymentStructure": "Milestone-based alpha agreements.",
+      "depositPercent": 50,
+      "estimatedDeliveryDays": 14,
+      "estimatedDeliveryHours": 30,
+      "directCostEstimate": 150,
+      "validationStatus": "Experimental Upside (Do not rely on for core runway)",
+      "targetUnitSales": 0,
+      "countTowardCoreTarget": false,
+      "scriptOpening": "Hi, this is an invitation-only alpha for experimental 3D portals. We're testing live deployments with select brands.",
+      "objectionHandlers": []
+    }
+  ],
+  "scenarios": [
+    {
+      "id": "scen-baseline",
+      "name": "Scenario 1: Baseline Core Plan ($20,000)",
+      "description": "8 units of Offer A ($12,000) + 4 units of Offer B ($10,000) - Youniverse upside excluded",
+      "offerAUnits": 8,
+      "offerBUnits": 4,
+      "offerCUnits": 0,
+      "grossContractedRevenue": 22000,
+      "cashTargetCollected": 20000,
+      "estimatedDeliveryHours": 144,
+      "feasibilityNote": "Achievable within 30 days if outreach targets (20-25 calls/day) are executed consistently and deposits collected upfront."
+    },
+    {
+      "id": "scen-modest",
+      "name": "Scenario 2: Conservative Runway Plan ($10,000)",
+      "description": "4 units of Offer A ($6,000) + 2 units of Offer B ($5,000)",
+      "offerAUnits": 4,
+      "offerBUnits": 2,
+      "offerCUnits": 0,
+      "grossContractedRevenue": 11000,
+      "cashTargetCollected": 10000,
+      "estimatedDeliveryHours": 72,
+      "feasibilityNote": "Provides substantial operating profit while preserving the $2,500 protected reserve."
+    }
+  ],
+  "tasks": [],
+  "prospects": [],
+  "callLogs": [],
+  "proposals": [],
+  "projects": [],
+  "transactions": [],
+  "scripts": [],
+  "dailyReviews": [],
+  "teamMembers": [
+    {
+      "id": "member-lead",
+      "name": "Founder",
+      "email": "itsyouonlinedotcom@gmail.com",
+      "role": "Campaign Lead & Closer",
+      "avatarColor": "#38bdf8",
+      "joinedAt": "2026-10-29",
+      "lastActiveAt": "2026-10-29T02:24:00Z",
+      "authProvider": "team"
+    }
+  ],
+  "teamActivityFeed": [],
+  "whichShittyPitch": {
+    "sidecarConfig": {
+      "connected": true,
+      "seatId": "wsp-seat-live-01",
+      "accountSeatName": "Campaign Operator (Primary Outbound Seat)",
+      "seatLimitPerHour": 60,
+      "revealsUsedThisHour": 0,
+      "hourWindowStart": "2026-10-29T02:24:00Z",
+      "savedPitch": "We help B2B trade, service, and manufacturing firms fix their single highest-friction website or mobile bottleneck with zero downtime, guaranteeing a measurable 20%+ increase in qualified inbound quote requests before proposing any full redesign.",
+      "callRules": [
+        "Rule 1: Never pitch on the opener. Ask for 27 seconds to explain why you called.",
+        "Rule 2: Point to exactly one observable friction point (e.g., broken mobile form, 9s load time).",
+        "Rule 3: The sole goal of the cold call is securing a 10-minute screenshare demo, never closing on the phone.",
+        "Rule 4: Never push through hard objections; offer an opt-out to protect credibility.",
+        "Rule 5: Team rule: If someone requests DNC or removal, honour it immediately across all seats.",
+        "Rule 6: Maximum 60 contact detail reveals per seat per hour enforced by Sidecar."
+      ]
+    },
+    "accountMaps": [],
+    "callLogs": [],
+    "chatHistory": [
+      {
+        "id": "msg-sys-1",
+        "role": "system",
+        "content": "WhichShittyPitch Sidecar connected in Production Mode. Ready to check what is due today, draft cold-call openers, map accounts, track contact reveals, and manage your team's 10-minute demo YES list.",
+        "timestamp": "2026-10-29T08:00:00Z"
+      }
+    ]
+  },
+  "notifications": [],
+  "notificationPreferences": {
+    "browserNotificationsEnabled": false,
+    "soundEnabled": true,
+    "notifyOnTaskDue": true,
+    "notifyOnStepClaimed": true,
+    "notifyOnDepositCollected": true,
+    "notifyOnProposalExpiring": true,
+    "notifyOnDncAdded": true,
+    "notifyOnHourlyQuotaReset": true
+  }
+}

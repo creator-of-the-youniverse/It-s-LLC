@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <script>
+      (function () {
+        function isViteWsMessage(arg) {
+          if (!arg) return false;
+          var str = '';
+          try {
+            if (typeof arg === 'string') {
+              str = arg;
+            } else if (arg instanceof Error) {
+              str = (arg.message || '') + ' ' + (arg.stack || '');
+            } else if (typeof arg === 'object') {
+              str = (arg.message || '') + ' ' + (arg.reason || '') + ' ' + String(arg);
+            } else {
+              str = String(arg);
+            }
+          } catch (e) {
+            str = String(arg);
+          }
+          var lower = str.toLowerCase();
+          return (
+            lower.indexOf('websocket') !== -1 ||
+            lower.indexOf('closed without opened') !== -1 ||
+            lower.indexOf('[vite]') !== -1 ||
+            lower.indexOf('vite-hmr') !== -1
+          );
+        }
+
+        var origConsoleError = console.error;
+        console.error = function () {
+          for (var i = 0; i < arguments.length; i++) {
+            if (isViteWsMessage(arguments[i])) {
+              return;
+            }
+          }
+          origConsoleError.apply(console, arguments);
+        };
+
+        var origConsoleWarn = console.warn;
+        console.warn = function () {
+          for (var i = 0; i < arguments.length; i++) {
+            if (isViteWsMessage(arguments[i])) {
+              return;
+            }
+          }
+          origConsoleWarn.apply(console, arguments);
+        };
+
+        window.addEventListener(
+          'unhandledrejection',
+          function (event) {
+            if (isViteWsMessage(event && event.reason)) {
+              event.preventDefault();
+              event.stopImmediatePropagation();
+            }
+          },
+          true
+        );
+
+        window.addEventListener(
+          'error',
+          function (event) {
+            if (isViteWsMessage(event && (event.error || event.message))) {
+              event.preventDefault();
+              event.stopImmediatePropagation();
+              return true;
+            }
+          },
+          true
+        );
+
+        function MockWebSocket(url, protocols) {
+          var self = this;
+          this.url = String(url || '');
+          this.protocol = Array.isArray(protocols) ? protocols[0] || '' : String(protocols || '');
+          this.readyState = 1; // OPEN
+          this.extensions = '';
+          this.bufferedAmount = 0;
+          this.binaryType = 'blob';
+          this.onopen = null;
+          this.onclose = null;
+          this.onerror = null;
+          this.onmessage = null;
+
+          var listeners = {};
+
+          this.addEventListener = function (type, callback) {
+            if (typeof callback !== 'function') return;
+            if (!listeners[type]) listeners[type] = [];
+            listeners[type].push(callback);
+            if (type === 'open') {
+              setTimeout(function () {
+                try {
+                  callback.call(self, { type: 'open', target: self, currentTarget: self });
+                } catch (e) {}
+              }, 0);
+            }
+          };
+
+          this.removeEventListener = function (type, callback) {
+            if (!listeners[type]) return;
+            listeners[type] = listeners[type].filter(function (cb) {
+              return cb !== callback;
+            });
+          };
+
+          this.dispatchEvent = function (event) {
+            var eventType = (event && event.type) || '';
+            var cbs = listeners[eventType] || [];
+            for (var i = 0; i < cbs.length; i++) {
+              try {
+                cbs[i].call(self, event);
+              } catch (e) {}
+            }
+            return true;
+          };
+
+          this.send = function () {};
+
+          this.close = function (code, reason) {
+            self.readyState = 3;
+            var closeEvt = {
+              type: 'close',
+              wasClean: true,
+              code: code || 1000,
+              reason: reason || '',
+              target: self,
+              currentTarget: self,
+            };
+            if (typeof self.onclose === 'function') {
+              try {
+                self.onclose.call(self, closeEvt);
+              } catch (e) {}
+            }
+            self.dispatchEvent(closeEvt);
+          };
+
+          setTimeout(function () {
+            if (self.readyState === 1) {
+              var openEvt = { type: 'open', target: self, currentTarget: self };
+              if (typeof self.onopen === 'function') {
+                try {
+                  self.onopen.call(self, openEvt);
+                } catch (e) {}
+              }
+              self.dispatchEvent(openEvt);
+            }
+          }, 0);
+        }
+
+        MockWebSocket.CONNECTING = 0;
+        MockWebSocket.OPEN = 1;
+        MockWebSocket.CLOSING = 2;
+        MockWebSocket.CLOSED = 3;
+
+        MockWebSocket.prototype.CONNECTING = 0;
+        MockWebSocket.prototype.OPEN = 1;
+        MockWebSocket.prototype.CLOSING = 2;
+        MockWebSocket.prototype.CLOSED = 3;
+
+        window.WebSocket = MockWebSocket;
+      })();
+    </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#020617" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="$5K→$20K OS" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/svg+xml" href="/icon.svg" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <title>$5K TO $20K IN 30 DAYS — It's LLC Execution Command Center</title>
+    <meta name="description" content="Personal business command center for executing the It's LLC 30-day revenue campaign from $5,000 working capital toward a $20,000 collected gross revenue target." />
+    <meta property="og:title" content="$5K TO $20K IN 30 DAYS — It's LLC Execution Command Center" />
+    <meta property="og:description" content="Personal business command center for executing the It's LLC 30-day revenue campaign from $5,000 working capital toward a $20,000 collected gross revenue target." />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400..700;1,9..40,400..700&family=IBM+Plex+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@500;600;700&display=swap" rel="stylesheet" />
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
+
+

@@ -1,0 +1,6 @@
+{
+  "name": "$5K TO $20K IN 30 DAYS",
+  "description": "Personal business command center for executing the It's LLC 30-day revenue campaign from $5,000 working capital toward a $20,000 collected gross revenue target.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
